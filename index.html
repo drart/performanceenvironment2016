@@ -1,0 +1,132 @@
+<html>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script src="bower_components/flocking/dist/flocking-all.js"></script>
+    <script src="bower_components/p5.js/lib/p5.min.js"></script>
+    <script> 
+
+	var backbone = flock.synth({
+	    synthDef: [
+		{
+		    id: "righthat",
+		    ugen: "flock.ugen.sinOsc",
+		    freq: 440,
+		    mul: {
+			ugen: "flock.ugen.env.simpleASR",
+			start: 0.0,
+			attack: 0.01,
+			sustain: 0.2,
+			release: 0.1,
+			gate: {
+			    ugen: "flock.ugen.impulse",
+			    rate: "control",
+			    freq: 2,
+			    phase: 0.5
+			}
+		    }
+		},
+		{
+		    id: "lefthat",
+		    ugen: "flock.ugen.sinOsc",
+		    freq: 220, 
+		    mul: {
+			ugen: "flock.ugen.env.simpleASR",
+			start: 0.0,
+			attack: 0.01,
+			sustain: 0.2,
+			release: 0.1,
+			gate: {
+			    ugen: "flock.ugen.impulse",
+			    rate: "control",
+			    freq: 2,
+			    phase: 0.0
+			}
+		    }    
+		}
+	    ]
+	});
+
+        var myNoise = flock.synth({
+            synthDef: {
+                id: "nnn",
+                ugen: "flock.ugen.whiteNoise",
+                mul: {
+                    ugen: "flock.ugen.asr",
+                    start: 0.0,
+                    attack: 0.1,
+                    sutain: 0.1,
+                    release: 1.0
+                }
+            }
+        });
+
+        flock.enviro.shared.play();
+    </script>
+    <style>
+        html {
+              text-align: center;
+              }
+      .slider {
+
+            width: 80%;
+        }
+        button {
+            height: 50px;
+            background-color: silver;
+            margin: 0 auto;
+            display: table;
+        }
+        input[type='range'] {
+            -webkit-appearance: none;
+            background-color: silver;
+            outline: none;
+        }
+
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            background-color: #444;
+            width: 20px;
+            height: 25px;
+            border: 0;
+            outline: 0;
+            outline-offset: -1px;
+        }
+    </style>
+    <body>
+
+        <button id="tone">TONE</button>
+        <br />
+        <form>
+              <input type="range" class="slider" id="tonepoints" min="0" max="1000"> <br \>
+                <br />
+       </form>
+
+        <button id="noise">NOISE</button>
+        <br />
+        <form>
+              Short <input type="range" class="slider" id="noisedur" min="200" max="2000"> Long <br />
+       </form>
+
+        <script>
+
+            document.getElementById("tone").onclick = function(){
+               var x = document.getElementById("tonepoints").value;
+	       console.log(Number(x)/1000);
+               backbone.set("righthat.mul.gate.phase", Number(x)/100);
+            };
+
+ 	    document.getElementById("tonepoints").onclick = function(){
+               var x = document.getElementById("tonepoints").value;
+               backbone.set("righthat.mul.gate.phase", Number(x)/100);
+	    };
+
+            document.getElementById("noise").onclick = function(){
+
+               var x = document.getElementById("tonepoints").value;
+               myNoise.set("nnn.mul.gate", 1);
+               myNoise.set("nnn.mul.release", dur/1000);
+               setTimeout(function(){myNoise.set("nnn.mul.gate",0)}, 100);
+            };
+
+        </script>
+    </body>
+</html>
