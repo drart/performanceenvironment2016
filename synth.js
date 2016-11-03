@@ -1,4 +1,20 @@
-  var gobble = flock.synth({
+// https://gist.github.com/colinbdclark/0bd443589eec51d0756bff736e6c346impuls://gist.github.com/colinbdclark/0bd443589eec51d0756bff736e6c346dd
+var interconnectBus = flock.environment.busManager.acquireNextBus("interconnect");
+
+var buster = flock.synth({
+	synthDef : {
+		ugen: "flock.ugen.out",
+		bus: interconnectBus, 
+		expand: 1, 
+		sources: {
+			ugen: "flock.ugen.impulse",
+			rate: "control", 
+			freq: 2
+		}
+	}
+});
+
+var gobble = flock.synth({
             synthDef : {
                 id: "gobble",
                 ugen: "flock.ugen.pan2",
@@ -13,9 +29,8 @@
 			             sustain: 0.2,
 			             release: 0.1,
 			             gate: {
-			                 ugen: "flock.ugen.impulse",
-			                 rate: "control",
-			                 freq: 2,
+			                 ugen: "flock.ugen.in",
+					 bus: interconnectBus,
 			    
                          }
 		          } 
@@ -68,6 +83,7 @@
         });
 
 /*
+// moved to index.html in order avoid collision 
 window.onload = function (){
     flock.enviro.shared.play();
 

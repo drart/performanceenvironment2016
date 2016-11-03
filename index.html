@@ -1,66 +1,75 @@
 <html>
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <script language="javascript" type="text/javascript" src="bower_components/flocking/dist/flocking-all.js"></script>
-    <script language="javascript" type="text/javascript" src="synth.js"></script>
-    <script language="javascript" type="text/javascript" src="bower_components/threejs/build/three.min.js "></script>
-    <script language="javascript" type="text/javascript" src="sketch.js"></script>
+    <head>
+	    <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <style>
-        html {
-              text-align: center;
-              }
-      .slider {
+	    <script language="javascript" type="text/javascript" src="bower_components/flocking/dist/flocking-all.js"></script>
+	    <script language="javascript" type="text/javascript" src="synth.js"></script>
+	    <script language="javascript" type="text/javascript" src="bower_components/threejs/build/three.min.js "></script>
+	    <script language="javascript" type="text/javascript" src="sketch.js"></script>
 
-            width: 80%;
-        }
-        button {
-            height: 50px;
-            background-color: silver;
-            margin: 0 auto;
-            display: table;
-        }
-        input[type='range'] {
-            -webkit-appearance: none;
-            background-color: silver;
-            outline: none;
-        }
+	    <style>
+		html {
+		      text-align: center;
+		      }
+	      .slider {
 
-        input[type='range']::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            background-color: #444;
-            width: 20px;
-            height: 25px;
-            border: 0;
-            outline: 0;
-            outline-offset: -1px;
-        }
-        canvas { position:fixed; top:0; left:0; z-index:-1; }
-    </style>
+		    width: 80%;
+		}
+		button {
+		    height: 50px;
+		    background-color: silver;
+		    margin: 0 auto;
+		    display: table;
+		}
+		input[type='range'] {
+		    -webkit-appearance: none;
+		    background-color: silver;
+		    outline: none;
+		}
+		input[type='range']::-webkit-slider-thumb {
+		    -webkit-appearance: none;
+		    background-color: #444;
+		    width: 20px;
+		    height: 25px;
+		    border: 0;
+		    outline: 0;
+		    outline-offset: -1px;
+		}
+		canvas { 
+		    position:fixed; 
+		    top:0; 
+	            left:0; 
+		    z-index:-1; 
+		}
+	    </style>
+    </head>
     <body>
-        
-        <button id="tone">TONE</button>
-        <form>
-              <input type="range" class="slider" id="tonepoints" min="0" max="1000">
-       </form>
-        <button id="noise">NOISE</button>
+	
+	<div id="gui">
+		<button id="tone">TONE</button>
+		<form>
+		      <input type="range" class="slider" id="tonepoints" min="0" max="1000">
+	       </form>
+		<button id="noise">NOISE</button>
+	</div>
 
         <script>
-        
+       	    // flocking initiation and gui setup  
             flock.enviro.shared.play();
 
-    document.getElementById("tonepoints").onchange = function(){
-        console.log(this.value);
-    };
+	    document.getElementById("tonepoints").onchange = function(){
+		console.log(this.value);
+	    };
+	    document.getElementById("noise").onclick = function(){
+		       myNoise.set("nnn.mul.gate", 1);
+		       setTimeout(function(){myNoise.set("nnn.mul.gate",0)}, 100);
+	    };
 
-    document.getElementById("noise").onclick = function(){
-               myNoise.set("nnn.mul.gate", 1);
-               setTimeout(function(){myNoise.set("nnn.mul.gate",0)}, 100);
-    };
-        
-        init();
-        animate();
+	
+        	// three.js initiation 
+		init();
+		animate();
+
         </script>
-        
-        
     </body>
 </html>
