@@ -2,7 +2,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <script language="javascript" type="text/javascript" src="bower_components/flocking/dist/flocking-all.js"></script>
     <script language="javascript" type="text/javascript" src="synth.js"></script>
-    <script language="javascript" type="text/javascript" src="bower_components/p5js/lib/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="bower_components/threejs/build/three.min.js "></script>
     <script language="javascript" type="text/javascript" src="sketch.js"></script>
 
     <style>
@@ -44,5 +44,23 @@
        </form>
         <button id="noise">NOISE</button>
 
+        <script>
+        
+            flock.enviro.shared.play();
+
+    document.getElementById("tonepoints").onchange = function(){
+        console.log(this.value);
+    };
+
+    document.getElementById("noise").onclick = function(){
+               myNoise.set("nnn.mul.gate", 1);
+               setTimeout(function(){myNoise.set("nnn.mul.gate",0)}, 100);
+    };
+        
+        init();
+        animate();
+        </script>
+        
+        
     </body>
 </html>

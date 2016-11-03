@@ -67,7 +67,7 @@
             }
         });
 
-
+/*
 window.onload = function (){
     flock.enviro.shared.play();
 
@@ -79,4 +79,4 @@ window.onload = function (){
                myNoise.set("nnn.mul.gate", 1);
                setTimeout(function(){myNoise.set("nnn.mul.gate",0)}, 100);
     };
-};
+};*/
