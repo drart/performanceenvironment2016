@@ -1,4 +1,4 @@
-// https://gist.github.com/colinbdclark/0bd443589eec51d0756bff736e6c346impuls://gist.github.com/colinbdclark/0bd443589eec51d0756bff736e6c346dd
+// https://gist.github.com/colinbdclark/0bd443589eec51d0756bff736e6c346d
 var interconnectBus = flock.environment.busManager.acquireNextBus("interconnect");
 
 var buster = flock.synth({
@@ -46,7 +46,7 @@ var gobble = flock.synth({
                 source : {
                     ugen: "flock.ugen.delay",
                     maxTime: 1.0,
-                    time: 0,
+                    time: 0.05,
                     source: {
                         ugen: "flock.ugen.sinOsc",
                         freq: 440,
@@ -57,9 +57,8 @@ var gobble = flock.synth({
 			                 sustain: 0.2,
 			                 release: 0.1,
 			                 gate: {
-			                     ugen: "flock.ugen.impulse",
-			                     rate: "control",
-			                     freq: 2,
+			                     ugen: "flock.ugen.in",
+			                     bus: interconnectBus,
 			    
                          }
 		              }

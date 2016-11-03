@@ -58,7 +58,12 @@
             flock.enviro.shared.play();
 
 	    document.getElementById("tonepoints").onchange = function(){
-		console.log(this.value);
+		// adjust delay time
+		// hard coded to freq 2 from sync bus
+		gibble.set("delay.time", 1/2); // adjust this somewhere else? 
+		// panning lr -> c -> rl
+		gibble.set("gibble.pan", (this.value/500) - 1 );		
+		gobble.set("gobble.pan", 1 - (this.value/500) );		
 	    };
 	    document.getElementById("noise").onclick = function(){
 		       myNoise.set("nnn.mul.gate", 1);
