@@ -43,14 +43,7 @@ var abletonpush = flock.midi.connection({
 
     listeners: {
         noteOn: function (msg) {
-            var vel = msg.velocity/ 127;
-            synth.set({
-                "carrier.freq": flock.midiFreq(msg.note),
-                "mod.mul.gate": 1.0,
-                "mod.mul.sustain": vel
-            });
-            console.log(msg.note);
-            console.log(synth.get("carrier.freq"));
+            abletonNoteOns(msg);
         },
         
         noteOff: function () {
@@ -67,14 +60,26 @@ var abletonpush = flock.midi.connection({
  
 });
 
-
 var abletonNoteOns = function(msg){
-
+    
+    // push knob touches
+    if (msg.note < 12){
+    }
+    // push buttons 
+    if(msg.note > 12){
+            var vel = msg.velocity/ 127;
+            synth.set({
+                "carrier.freq": flock.midiFreq(msg.note),
+                "mod.mul.gate": 1.0,
+                "mod.mul.sustain": vel
+            });
+            console.log(msg.note);
+            console.log(synth.get("carrier.freq"));
+    }
 };
 
-
-
 /*
+// FUTURE? 
 // midi output? Activate button lights
 var pushout = flock.midi.connection({
     

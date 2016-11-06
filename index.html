@@ -6,6 +6,7 @@
 	    <script language="javascript" type="text/javascript" src="synth.js"></script>
 	    <script language="javascript" type="text/javascript" src="bower_components/threejs/build/three.min.js "></script>
 	    <script language="javascript" type="text/javascript" src="sketch.js"></script>
+	    <script language="javascript" type="text/javascript" src="glitchseq/glitchseq.js"></script>
 
 	    <style>
 		html {
@@ -54,24 +55,16 @@
 	</div>
 
         <script>
+        $("#gui").hide();
        	    // flocking initiation and gui setup  
             flock.enviro.shared.play();
 
 	    document.getElementById("tonepoints").onchange = function(){
-		// adjust delay time
-		// hard coded to freq 2 from sync bus
-		gibble.set("delay.time", 1/2); // adjust this somewhere else? 
-		// panning lr -> c -> rl
-		gibble.set("gibble.pan", (this.value/500) - 1 );		
-		gobble.set("gobble.pan", 1 - (this.value/500) );		
 	    };
 	    document.getElementById("noise").onclick = function(){
-		       myNoise.set("nnn.mul.gate", 1);
-		       setTimeout(function(){myNoise.set("nnn.mul.gate",0)}, 100);
 	    };
-
 	
-        	// three.js initiation 
+        // three.js initiation 
 		init();
 		animate();
 
