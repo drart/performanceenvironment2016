@@ -5,8 +5,25 @@
 	    <script language="javascript" type="text/javascript" src="bower_components/flocking/dist/flocking-all.js"></script>
 	    <script language="javascript" type="text/javascript" src="synth.js"></script>
 	    <script language="javascript" type="text/javascript" src="bower_components/threejs/build/three.min.js "></script>
+	    <script language="javascript" type="text/javascript" src="bower_components/threejs/examples/js/effects/AnaglyphEffect.js "></script>
 	    <script language="javascript" type="text/javascript" src="sketch.js"></script>
 	    <script language="javascript" type="text/javascript" src="glitchseq/glitchseq.js"></script>
+
+
+        <script id="vertexShader" type="x-shader/x-vertex">
+            void main() {
+                gl_Position = vec4( position, 1.0 );
+            }
+        </script>
+
+        <script id="fragmentShader" type="x-shader/x-fragment">
+            uniform float time;
+            void main() {
+                float x = mod(time + gl_FragCoord.x, 20.) < 10. ? 1. : 0.;
+                float y = mod(time + gl_FragCoord.y, 20.) < 10. ? 1. : 0.;
+                gl_FragColor = vec4(vec3(min(x, y)), 1.);
+            }
+        </script>
 
 	    <style>
 		html {
