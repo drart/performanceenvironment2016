@@ -72,9 +72,12 @@
 	</div>
 
         <script>
+        // hide gui for now
         $("#gui").hide();
-       	    // flocking initiation and gui setup  
-            flock.enviro.shared.play();
+
+       	// flocking initiation 
+        flock.init(); // thanks colin, forgot about this. 
+        flock.enviro.shared.play();
 
 	    document.getElementById("tonepoints").onchange = function(){
 	    };

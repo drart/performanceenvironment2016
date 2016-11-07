@@ -23,6 +23,19 @@ function addCube(){
     scene.add( cube );
 }
 
+// removeCube
+
+
+
+/*
+====
+{
+       origin: point,
+        fadetime: t/f, 
+        leavethescreen: function(degrees,[time])
+}
+*/
+
 function init() {
 
     container = document.createElement( 'div' );
