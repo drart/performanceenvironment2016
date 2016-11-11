@@ -38,7 +38,7 @@ var gobble = flock.synth({
 		          } 
                 }
             }
-        });
+});
         
         var gibble = flock.synth({
             synthDef : {
@@ -67,21 +67,21 @@ var gobble = flock.synth({
                     }
                 }
             }
-        });
+});
         
-        var myNoise = flock.synth({
-            synthDef: {
-                id: "nnn",
-                ugen: "flock.ugen.whiteNoise",
-                mul: {
-                    ugen: "flock.ugen.asr",
-                    start: 0.0,
-                    attack: 0.1,
-                    sutain: 0.1,
-                    release: 1.0
-                }
-            }
-        });
+var myNoise = flock.synth({
+    synthDef: {
+        id: "nnn",
+        ugen: "flock.ugen.whiteNoise",
+        mul: {
+            ugen: "flock.ugen.asr",
+            start: 0.0,
+            attack: 0.1,
+            sutain: 0.1,
+            release: 1.0
+        }
+    }
+});
 
 /*
 // moved to index.html in order avoid collision 
