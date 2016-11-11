@@ -69,31 +69,16 @@ var gobble = flock.synth({
             }
         });
         
-        var myNoise = flock.synth({
-            synthDef: {
-                id: "nnn",
-                ugen: "flock.ugen.whiteNoise",
-                mul: {
-                    ugen: "flock.ugen.asr",
-                    start: 0.0,
-                    attack: 0.1,
-                    sutain: 0.1,
-                    release: 1.0
-                }
-            }
-        });
-
-/*
-// moved to index.html in order avoid collision 
-window.onload = function (){
-    flock.enviro.shared.play();
-
-    document.getElementById("tonepoints").onchange = function(){
-        console.log(this.value);
-    };
-
-    document.getElementById("noise").onclick = function(){
-               myNoise.set("nnn.mul.gate", 1);
-               setTimeout(function(){myNoise.set("nnn.mul.gate",0)}, 100);
-    };
-};*/
+var myNoise = flock.synth({
+    synthDef: {
+	id: "nnn",
+	ugen: "flock.ugen.whiteNoise",
+	mul: {
+	    ugen: "flock.ugen.asr",
+	    start: 0.0,
+	    attack: 0.1,
+	    sutain: 0.1,
+	    release: 1.0
+	}
+    }
+});

@@ -60,6 +60,16 @@ var abletonpush = flock.midi.connection({
  
 });
 
+
+var abletonCCs = function(msg){
+    // push knobs
+    if (msg.note < 8){
+	// glitchseq
+        glitches[msg.note] = msg.value / 127;
+    }
+
+};
+
 var abletonNoteOns = function(msg){
     
     // push knob touches

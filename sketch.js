@@ -6,16 +6,14 @@ var radius = 100, theta = 0;
 
 function addCube(){
     var ssss = Math.random() * 5; 
-    uniforms = {
-        time:       { value: 1.0 },
-    };
+
     var material = new THREE.ShaderMaterial( {
         uniforms: uniforms,
         vertexShader: document.getElementById( 'vertexShader' ).textContent,
         fragmentShader: document.getElementById( 'fragmentShader' ).textContent
     } );
-    cube = new THREE.Mesh( new THREE.CubeGeometry( ssss, ssss, ssss ), new THREE.MeshNormalMaterial() );
-    //cube = new THREE.Mesh( new THREE.CubeGeometry( ssss, ssss, ssss ), material );
+    // cube = new THREE.Mesh( new THREE.CubeGeometry( ssss, ssss, ssss ), new THREE.MeshNormalMaterial() );
+    cube = new THREE.Mesh( new THREE.CubeGeometry( ssss, ssss, ssss ), material );
     cube.position.y = Math.random() * 200 - 100;
     cube.position.x = Math.random() * 200 - 100;
     cube.position.z = Math.random() * 200 - 100;
@@ -37,6 +35,11 @@ function addCube(){
 */
 
 function init() {
+
+    uniforms = {}; 
+    uniforms.time = {};
+    uniforms.time.value = 1.0;
+    console.log(uniforms);
 
     container = document.createElement( 'div' );
     document.body.appendChild( container );

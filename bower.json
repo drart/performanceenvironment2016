@@ -1,10 +1,9 @@
 {
-  "name":"flocking",
-  "version": "0.0.1",
+  "name":"performanceenvironment2016",
+  "version": "0.1.0",
   "dependencies": {
     "osc.js": ">=1.0.2",
     "threejs": "r82",
-    "flocking": "git://github.com/colinbdclark/Flocking.git",
-    "wagner": "git://github.com/spite/Wagner.git"
+    "flocking": "git://github.com/colinbdclark/Flocking.git"
   }
 }
