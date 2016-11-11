@@ -12,8 +12,8 @@ function addCube(){
         vertexShader: document.getElementById( 'vertexShader' ).textContent,
         fragmentShader: document.getElementById( 'fragmentShader' ).textContent
     } );
-    // cube = new THREE.Mesh( new THREE.CubeGeometry( ssss, ssss, ssss ), new THREE.MeshNormalMaterial() );
-    cube = new THREE.Mesh( new THREE.CubeGeometry( ssss, ssss, ssss ), material );
+    cube = new THREE.Mesh( new THREE.CubeGeometry( ssss, ssss, ssss ), new THREE.MeshNormalMaterial() );
+    //cube = new THREE.Mesh( new THREE.CubeGeometry( ssss, ssss, ssss ), material );
     cube.position.y = Math.random() * 200 - 100;
     cube.position.x = Math.random() * 200 - 100;
     cube.position.z = Math.random() * 200 - 100;
