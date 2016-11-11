@@ -4,6 +4,8 @@
 
 	    <script language="javascript" type="text/javascript" src="bower_components/flocking/dist/flocking-all.js"></script>
 	    <script language="javascript" type="text/javascript" src="synth.js"></script>
+	    <script language="javascript" type="text/javascript" src="synth-wire.js"></script>
+
 	    <script language="javascript" type="text/javascript" src="bower_components/threejs/build/three.min.js "></script>
 	    <script language="javascript" type="text/javascript" src="bower_components/threejs/examples/js/effects/AnaglyphEffect.js "></script>
 	    <script language="javascript" type="text/javascript" src="sketch.js"></script>
@@ -78,6 +80,11 @@
        	// flocking initiation 
         flock.init(); // thanks colin, forgot about this. 
         flock.enviro.shared.play();
+        //flock.enviro.shared.start();
+        glitchseq.play();
+        buster.play();
+        gibble.play();
+        gobble.play();
 
 	    document.getElementById("tonepoints").onchange = function(){
 	    };

@@ -38,7 +38,7 @@ var gobble = flock.synth({
 		          } 
                 }
             }
-        });
+});
         
         var gibble = flock.synth({
             synthDef : {
@@ -67,7 +67,7 @@ var gobble = flock.synth({
                     }
                 }
             }
-        });
+});
         
 var myNoise = flock.synth({
     synthDef: {

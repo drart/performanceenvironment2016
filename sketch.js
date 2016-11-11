@@ -36,10 +36,9 @@ function addCube(){
 
 function init() {
 
-    uniforms = {}; 
-    uniforms.time = {};
-    uniforms.time.value = 1.0;
-    console.log(uniforms);
+    uniforms = {
+        time:       { value: 1.0 },
+    };
 
     container = document.createElement( 'div' );
     document.body.appendChild( container );
