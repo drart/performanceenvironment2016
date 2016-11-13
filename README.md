@@ -6,6 +6,7 @@ TODO
      - https://github.com/crosslandwa/push-wrapper (awesome but seems to be normalled to a midi port)
      - https://github.com/Ableton/push-interface (great docs)
      - ~~https://forum.ableton.com/viewtopic.php?f=55&t=193744&start=15 (writing to push screen)~~
+     - https://github.com/brunchboy/afterglow/blob/master/src/afterglow/controllers/ableton_push.clj (afterglow Push implementation is awesome)
 - Sequences
 - shaderlib? https://threejs.org/examples/webgl_shaders_sky.html
 

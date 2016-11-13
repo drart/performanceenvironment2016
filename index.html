@@ -4,20 +4,17 @@
 
 	    <script language="javascript" type="text/javascript" src="bower_components/flocking/dist/flocking-all.js"></script>
 	    <script language="javascript" type="text/javascript" src="synth.js"></script>
-	    <script language="javascript" type="text/javascript" src="synth-wire.js"></script>
+	    <script language="javascript" type="text/javascript" src="glitchseq/glitchseq.js"></script>
 
 	    <script language="javascript" type="text/javascript" src="bower_components/threejs/build/three.min.js "></script>
 	    <script language="javascript" type="text/javascript" src="bower_components/threejs/examples/js/effects/AnaglyphEffect.js "></script>
 	    <script language="javascript" type="text/javascript" src="sketch.js"></script>
-	    <script language="javascript" type="text/javascript" src="glitchseq/glitchseq.js"></script>
-
 
         <script id="vertexShader" type="x-shader/x-vertex">
             void main() {
                 gl_Position = vec4( position, 1.0 );
             }
         </script>
-
         <script id="fragmentShader" type="x-shader/x-fragment">
             uniform float time;
             void main() {
@@ -65,26 +62,23 @@
     </head>
     <body>
 	
-	<div id="gui">
-		<button id="tone">TONE</button>
-		<form>
-		      <input type="range" class="slider" id="tonepoints" min="0" max="1000">
-	       </form>
-		<button id="noise">NOISE</button>
-	</div>
+        <div id="gui">
+            <button id="tone">TONE</button>
+            <form>
+                  <input type="range" class="slider" id="tonepoints" min="0" max="1000">
+               </form>
+            <button id="noise">NOISE</button>
+        </div>
 
         <script>
         // hide gui for now
         $("#gui").hide();
 
        	// flocking initiation 
-        flock.init(); // thanks colin, forgot about this. 
-        flock.enviro.shared.play();
+        flock.init();
+        //flock.enviro.shared.play();
         //flock.enviro.shared.start();
-        glitchseq.play();
-        buster.play();
-        gibble.play();
-        gobble.play();
+
 
 	    document.getElementById("tonepoints").onchange = function(){
 	    };
@@ -94,7 +88,7 @@
         // three.js initiation 
 		init();
 		animate();
-
         </script>
+	<script language="javascript" type="text/javascript" src="mapper.js"></script>
     </body>
 </html>

@@ -18,89 +18,89 @@ var synth = flock.synth({
     }
 });
 
-var abletonpush = flock.midi.connection({
-    // This should only be used if you know the port you want to use
-    // ahead of time. Otherwise, the system.ports object should be bound to a UI
-    // of some kind and the user should be allowed to select their ports.
-    // When a selection has been made, invoke .open() on this connection.
-    // Remember that the whole system is asynchronous, which means you have to wait
-    // for the ready() event to get the current list of ports.
-    openImmediately: true,
-    
-    // This option is highly configurable. In the simplest case,
-    // you can specify a "manufacturer" properity, a port "name" property (e.g. QUNEO), or both.
-    // If you want more complex routings, you can specify "inputs" and "outputs" objects,
-    // which can contain "manufacturer" and "name" properties. This allows
-    // you to route input signals from a different device than the output.
-    // You can even specify arrays for the "input" and "output" properties 
-    // if you want to listen for MIDI message on multiple ports or send broadcast
-    // messages to multiple device.
-    // But for most simple cases, you'll just want to refer to the device either 
-    // by port name or manufacturer.
-    ports: {
-        name : "Ableton Push User Port"
-    },
 
-    listeners: {
-        noteOn: function (msg) {
-            abletonNoteOns(msg);
-        },
-        
-        noteOff: function () {
-            synth.set("mod.mul.gate", 0);
-        },
-        
-        control: function (msg) {
-            var vibrato= msg.note / 32;
-            synth.set({
-                "mod.freq": vibrato
-            });
-        }
-    }
- 
+
+// https://gist.github.com/colinbdclark/0bd443589eec51d0756bff736e6c346d
+// 0.2.0
+//var interconnectBus = flock.environment.busManager.acquireNextBus("interconnect");
+var interconnectBus = flock.enviro.shared.acquireNextBus("interconnect");
+
+var buster = flock.synth({
+	synthDef : {
+		ugen: "flock.ugen.out",
+		bus: interconnectBus, 
+		expand: 1, 
+		sources: {
+			ugen: "flock.ugen.impulse",
+			rate: "control", 
+			freq: 2
+		}
+	}
 });
 
-
-var abletonCCs = function(msg){
-    // push knobs
-    if (msg.note < 8){
-	// glitchseq
-        glitches[msg.note] = msg.value / 127;
-    }
-
-};
-
-var abletonNoteOns = function(msg){
-    
-    // push knob touches
-    if (msg.note < 12){
-    }
-    // push buttons 
-    if(msg.note > 12){
-            var vel = msg.velocity/ 127;
-            synth.set({
-                "carrier.freq": flock.midiFreq(msg.note),
-                "mod.mul.gate": 1.0,
-                "mod.mul.sustain": vel
-            });
-            console.log(msg.note);
-            console.log(synth.get("carrier.freq"));
-    }
-};
-
-/*
-// FUTURE? 
-// midi output? Activate button lights
-var pushout = flock.midi.connection({
-    
-    openImmediately: true, 
-    ports: {
-        name: "Ableton Push User Output" 
-    },
-
-
+var gobble = flock.synth({
+            synthDef : {
+                id: "gobble",
+                ugen: "flock.ugen.pan2",
+                pan : -1, 
+                source : {
+                    ugen: "flock.ugen.sinOsc",
+                    freq: 220,
+                    mul : {
+			             ugen: "flock.ugen.env.simpleASR",
+			             start: 0.0,
+			             attack: 0.01,
+			             sustain: 0.2,
+			             release: 0.1,
+			             gate: {
+			                 ugen: "flock.ugen.in",
+					 bus: interconnectBus,
+			    
+                         }
+		          } 
+                }
+            }
 });
-
-pushout.send({})
-
-*/
+        
+        var gibble = flock.synth({
+            synthDef : {
+                id: "gibble",
+                ugen: "flock.ugen.pan2",
+                pan : 1, 
+                source : {
+                    ugen: "flock.ugen.delay",
+                    maxTime: 1.0,
+                    time: 0.05,
+                    source: {
+                        ugen: "flock.ugen.sinOsc",
+                        freq: 440,
+                        mul : {
+                            ugen: "flock.ugen.env.simpleASR",
+			                 start: 0.0,
+			                 attack: 0.01,
+			                 sustain: 0.2,
+			                 release: 0.1,
+			                 gate: {
+			                     ugen: "flock.ugen.in",
+			                     bus: interconnectBus,
+			    
+                         }
+		              }
+                    }
+                }
+            }
+});
+        
+var myNoise = flock.synth({
+    synthDef: {
+	id: "nnn",
+	ugen: "flock.ugen.whiteNoise",
+	mul: {
+	    ugen: "flock.ugen.asr",
+	    start: 0.0,
+	    attack: 0.1,
+	    sutain: 0.1,
+	    release: 1.0
+	}
+    }
+});
