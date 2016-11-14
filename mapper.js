@@ -83,13 +83,18 @@ var abletonNoteOns = function(msg){
 (function(){
     setTimeout( function(){
         abletonpush.send([176, 85, 1]); // dim play light 
+        abletonpush.send([176, 50, 1]); // dim play light 
+        abletonpush.send([176, 51, 1]); // dim play light 
+        abletonpush.send([176, 114, 1]); // dim play light 
+        abletonpush.send([176, 115, 1]); // dim play light 
+        for (var i = 36; i < 100; i++){
+            abletonpush.send([144, i, 100]); // dim play light 
+        }
     }, 1000);
 })();
 
-/*
-// FUTURE? 
-// midi output? Activate button lights
-start by clearing them all
+/* TODO
+- start by clearing them all
 */
 
 
