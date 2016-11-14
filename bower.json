@@ -2,8 +2,8 @@
   "name":"performanceenvironment2016",
   "version": "0.1.0",
   "dependencies": {
-    "osc.js": ">=1.0.2",
-    "threejs": "r82",
+    "osc.js": "latest",
+    "threejs": "latest",
     "flocking": "git://github.com/colinbdclark/Flocking.git"
   }
 }
