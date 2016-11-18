@@ -13,26 +13,34 @@ push.on('data', console.log);
 //push.write(x);
 
 // create a sysex message
-var stringtopushsysex = function(asciicode, line){
+var stringtopushsysex = function(line){
     line = (line === undefined) ? 24 : line + 24;
     line = Math.min(line, 27);
     line = Math.max(line, 24);
 
+    //sysex header
     var sysexmessage = [240,71,127,21];
     sysexmessage.push(line);
+    //console.log(line);
     sysexmessage.push(0,69,0);
-    sysexmessage.push(asciicode);    
-    for(var i = 0; i < 67; i++){
-            sysexmessage.push(32);
+
+    // the ascii codes to send
+    for(var i = 0; i < 68; i++){
+        var thechar = ( (line-24)* 68 ) + i;
+        // doesn't respond to codes over 127
+        thechar = Math.min(thechar, 127);
+        //var thechar = 32;
+        //console.log( thechar );
+        sysexmessage.push(thechar);
     };
+    // finish sysex message
     sysexmessage.push(247);
 
     return sysexmessage;
 };
 
-for (var i = 0; i < 256; i++){
-    var mymessage = stringtopushsysex(i, 1);
+for (var i = 0; i < 4; i++){
+    var mymessage = stringtopushsysex( i );
+    //console.log(mymessage);
     push.write(mymessage);
-    sleep.sleep(1);
 }
-

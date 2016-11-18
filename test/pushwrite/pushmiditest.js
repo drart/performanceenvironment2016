@@ -33,6 +33,7 @@ var stringtopushsysex = function(thestring, line){
 
 var mystring = "f  adkjadflkjadflkja;lkjkljf a";
 var mymessage = stringtopushsysex(mystring, 1);
+console.log(mymessage);
 push.write(mymessage);
 
 // light up beat repeat buttons
