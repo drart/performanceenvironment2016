@@ -22,8 +22,9 @@ var synth = flock.synth({
 
 // https://gist.github.com/colinbdclark/0bd443589eec51d0756bff736e6c346d
 // 0.2.0
-//var interconnectBus = flock.environment.busManager.acquireNextBus("interconnect");
-var interconnectBus = flock.enviro.shared.acquireNextBus("interconnect");
+var interconnectBus = flock.environment.busManager.acquireNextBus("interconnect");
+// 0.1.6
+//var interconnectBus = flock.enviro.shared.acquireNextBus("interconnect");
 
 var buster = flock.synth({
 	synthDef : {
@@ -104,3 +105,31 @@ var myNoise = flock.synth({
 	}
     }
 });
+
+
+var dusty = flock.synth({
+    synthDef: {
+        id: "dusty" ,             
+        ugen: "flock.ugen.freeverb",
+        mix: 1,
+        room: 0.75,
+        damp: 1,
+        source: {
+            ugen: "flock.ugen.dust",
+            density: 100, 
+            mul: 0.25
+        }
+    }
+});
+
+
+
+var dust = flock.synth({
+    synthDef: {
+        id: "dd",
+        ugen: "flock.ugen.dust",
+        density: 200,
+        mul: 0.25
+    }
+});
+        

@@ -1,7 +1,6 @@
 TODO
 
 - Use wires to sync impulse (using flocking 0.1.6, move to 0.2.0dev?)
-- Integrate osc.js -- leave this for now
 - MIDI (Push, LPD-8)
      - https://github.com/crosslandwa/push-wrapper (awesome but seems to be normalled to a midi port)
      - https://github.com/Ableton/push-interface (great docs)
@@ -11,6 +10,7 @@ TODO
 - shaderlib? https://threejs.org/examples/webgl_shaders_sky.html
 
 FUTURE?
+
 - wagner helper? 
 - push scenes? 
 - mapper object binding visuals and sound to hardware and network interfaces? 
