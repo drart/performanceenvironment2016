@@ -46,6 +46,7 @@ var glitchseq = flock.synth({
                     if (glitches[glitchticks % glitches.length].prob > Math.random()){
                         glitches[glitchticks % glitches.length].samp.play();
                         addCube();
+                        visualeffect = !visualeffect;
                     }
                     glitchticks++;
                 }

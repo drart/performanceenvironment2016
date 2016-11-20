@@ -2,6 +2,8 @@ var container;
 var camera, scene, renderer, effect;
 var uniforms;
 
+var visualeffect = false;
+
 var radius = 100, theta = 0;
 
 function addCube(){
@@ -87,5 +89,8 @@ function render() {
 
     camera.updateMatrixWorld();
 
-    effect.render( scene, camera );
+    if (visualeffect)
+        effect.render( scene, camera );
+    else
+        renderer.render( scene, camera );
 }

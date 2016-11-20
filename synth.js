@@ -40,6 +40,7 @@ var buster = flock.synth({
 });
 
 var gobble = flock.synth({
+    addToEnvironment: false,
             synthDef : {
                 id: "gobble",
                 ugen: "flock.ugen.pan2",
@@ -62,36 +63,36 @@ var gobble = flock.synth({
                 }
             }
 });
-        
-        var gibble = flock.synth({
-            synthDef : {
-                id: "gibble",
-                ugen: "flock.ugen.pan2",
-                pan : 1, 
-                source : {
-                    ugen: "flock.ugen.delay",
-                    maxTime: 1.0,
-                    time: 0.05,
-                    source: {
-                        ugen: "flock.ugen.sinOsc",
-                        freq: 440,
-                        mul : {
-                            ugen: "flock.ugen.env.simpleASR",
-			                 start: 0.0,
-			                 attack: 0.01,
-			                 sustain: 0.2,
-			                 release: 0.1,
-			                 gate: {
-			                     ugen: "flock.ugen.in",
-			                     bus: interconnectBus,
-			    
-                         }
-		              }
-                    }
+
+var gibble = flock.synth({
+    addToEnvironment: false,
+    synthDef : {
+        id: "gibble",
+        ugen: "flock.ugen.pan2",
+        pan : 1, 
+        source : {
+            ugen: "flock.ugen.delay",
+            maxTime: 1.0,
+            time: 0.05,
+            source: {
+                ugen: "flock.ugen.sinOsc",
+                freq: 440,
+                mul : {
+                    ugen: "flock.ugen.env.simpleASR",
+                        start: 0.0,
+                        attack: 0.01,
+                        sustain: 0.2,
+                        release: 0.1,
+                        gate: {
+                            ugen: "flock.ugen.in",
+                            bus: interconnectBus,
+                        }
                 }
             }
+        }
+    }
 });
-        
+
 var myNoise = flock.synth({
     synthDef: {
 	id: "nnn",
@@ -108,6 +109,7 @@ var myNoise = flock.synth({
 
 
 var dusty = flock.synth({
+    addToEnvironment: false,
     synthDef: {
         id: "dusty" ,             
         ugen: "flock.ugen.freeverb",
@@ -117,14 +119,13 @@ var dusty = flock.synth({
         source: {
             ugen: "flock.ugen.dust",
             density: 100, 
-            mul: 0.25
+            mul: 0.55
         }
     }
 });
 
-
-
 var dust = flock.synth({
+    addToEnvironment: false,
     synthDef: {
         id: "dd",
         ugen: "flock.ugen.dust",
@@ -133,3 +134,49 @@ var dust = flock.synth({
     }
 });
         
+var granny = flock.synth({
+   addToEnvironment: false,
+   synthDef: {
+       ugen: "flock.ugen.granulator",
+       numGrains: {
+           ugen: "flock.ugen.line",
+           start: 10,
+           end: 100,
+           duration: 100
+       },
+       grainDur: {
+           ugen: "flock.ugen.line",
+           start: 0.5,
+           end: 0.01,
+           duration: 100
+       },
+       delayDur: 8,
+       mul: 0.5,
+       source: {
+           ugen: "flock.ugen.filter.biquad.lp",
+           freq: {
+               ugen: "flock.ugen.sin",
+               rate: "control",
+               freq: {
+                   ugen: "flock.ugen.xLine",
+                   rate: "control",
+                   start: 1,
+                   end: 7000,
+                   duration: 100
+               },
+               mul: 2000,
+               add: 3000
+           },
+           source: {
+               ugen: "flock.ugen.lfSaw",
+               freq: {
+                   ugen: "flock.ugen.sin",
+                   freq: 0.2,
+                   mul: 3000,
+                   add: 7000,
+               },
+               mul: 0.25
+           }
+       }
+   }
+});

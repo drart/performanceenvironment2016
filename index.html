@@ -76,14 +76,13 @@
         $("#gui").hide();
 
        	// flocking initiation 
-        flock.init();
-        //flock.enviro.shared.play();
-        //flock.enviro.shared.start();
-
+        var flockenvironment = flock.init();
+        flockenvironment.start();
 
 	    document.getElementById("tonepoints").onchange = function(){
 	    };
 	    document.getElementById("noise").onclick = function(){
+            visualeffect = !visualeffect;
 	    };
 	
         // three.js initiation 
