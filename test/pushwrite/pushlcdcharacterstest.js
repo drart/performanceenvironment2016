@@ -14,7 +14,6 @@ push.on('data', function(data){
 
     if (data[0] === 176 ){
         if(data[1] < 80 && data[1] > 70){
-            //var mymessage = stringtopushsysex(String(data[2]),  1 );
             knobvals[data[1]-71] = data[2];
             var mymessage = stringtopushsysex(knobvals,  1 );
             push.write(mymessage);
@@ -23,7 +22,6 @@ push.on('data', function(data){
             if (data[2] === 127){
                 lightson[data[1]] = !lightson[data[1]];
                 push.write([176, data[1], 127 * lightson[data[1]]]);
-                //console.log(lightson);
             }
         }
     }
@@ -40,10 +38,10 @@ var stringtopushsysex = function(mystring, line){
     var sysexmessage = [240,71,127,21];
     sysexmessage.push(line);
     //console.log(line);
-    sysexmessage.push(0,69,0);
+    sysexmessage.push(0,68,0);
 
     if ( Array.isArray(mystring) ){
-        if (mystring.length === 8 ) {
+        if (mystring.length !== 8 ) {
         }
 
         for (var i = 0 ; i < 8 ; i++){
@@ -54,8 +52,12 @@ var stringtopushsysex = function(mystring, line){
             for (var s = 0 ; s < iterlength; s++){
                 chararray.push( thestring[s].charCodeAt(0) );    
             }
+            // centers the string by putting a space at the beginning or end
             while(chararray.length < 8){
-                chararray.push(32);
+                if (chararray.length % 2 === 1)
+                    chararray.push(32);
+                else 
+                    chararray.unshift(32);
             }
             for (var j = 0 ; j < 8; j++){
                 sysexmessage.push( chararray[j] );
@@ -73,18 +75,26 @@ var stringtopushsysex = function(mystring, line){
         for (var i = 0; i < mystring.length; i ++)
               asciiKeys.push(mystring[i].charCodeAt(0));
 
+        /*
         // the ascii codes to send
         for(var i = 0; i < 68; i++){
-            //var thechar = ( (line-24)* 68 ) + i;
             var thechar = asciiKeys[i];
             thechar = thechar || 32;
-            // doesn't respond to codes over 127
             thechar = Math.min(thechar, 127);
-            //var thechar = 32;
-            //console.log( thechar );
             sysexmessage.push(thechar);
         };
-
+        */
+        while (asciiKeys.length < 68){
+            if (asciiKeys.length % 2 === 1){
+                asciiKeys.push(32);
+            }else{
+                asciiKeys.unshift(32);
+            }
+        }
+        for (var i = 0; i < 68; i++){
+            sysexmessage.push( asciiKeys[i] );
+        }
+        
     }
 
     // finish sysex message
@@ -93,8 +103,23 @@ var stringtopushsysex = function(mystring, line){
     return sysexmessage;
 };
 
-push.write([240,71,127,21,28,0,0,247]);
-stringtopushsysex("flajfl",  4 );
+
+function clearlinesysex(line){
+    line = (line === undefined) ? 28 : line + 28;
+    line = Math.min(line, 31);
+    line = Math.max(line, 28);
+    return [240,71,127,21,line.valueOf(),0,0,247];
+}
+
+// clear line 1
+push.write( clearlinesysex(2) );
+push.write( clearlinesysex(1) );
+push.write( clearlinesysex(3) );
+push.write( clearlinesysex(5) );
+
+var stringtest = stringtopushsysex("ffafadflakdjfjlk",0 );
+console.log(stringtest);
+push.write(stringtest);
 
 for (var i = 36 ; i < 100; i++)
     push.write([144,i, 2]);
